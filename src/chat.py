@@ -91,6 +91,50 @@ def texto_de_respuesta(respuesta) -> str:
         )
     return str(contenido)
 
+# Cache global del LLM
+_llm_instance = None
+
+def obtener_llm():
+    """Obtiene o crea la instancia del LLM"""
+    global _llm_instance
+    if _llm_instance is None:
+        if not config.GOOGLE_API_KEY:
+            raise RuntimeError(
+                "No se encontró GOOGLE_API_KEY. Revisa tu archivo .env."
+            )
+        _llm_instance = ChatGoogleGenerativeAI(
+            model=config.LLM_MODEL,
+            temperature=config.LLM_TEMPERATURE,
+            api_key=config.GOOGLE_API_KEY,
+        )
+    return _llm_instance
+
+def generar_respuesta(pregunta: str, documentos_relevantes: list, historico: list = None) -> str:
+    """
+    Genera una respuesta usando RAG con el histórico de conversación.
+    
+    Args:
+        pregunta: La pregunta del usuario
+        documentos_relevantes: Lista de documentos relevantes del vector store
+        historico: Histórico de conversación (lista de dicts con 'rol' y 'contenido')
+    
+    Returns:
+        La respuesta generada por el modelo
+    """
+    # Obtener instancia del LLM
+    llm = obtener_llm()
+    
+    # Construir contexto a partir de documentos
+    contexto = construir_contexto(documentos_relevantes)
+    
+    # Construir el prompt con contexto
+    prompt = construir_prompt(pregunta, contexto)
+    
+    # Generar respuesta
+    respuesta = llm.invoke(prompt)
+    
+    return texto_de_respuesta(respuesta)
+
 def preguntar(vector_store, llm, pregunta: str):
     # Primero, intentar búsqueda directa
     documentos = recuperar_contexto(vector_store, pregunta)

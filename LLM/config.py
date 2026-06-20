@@ -55,8 +55,7 @@ LLM_TEMPERATURE = 0.2
 # =========================================================
 # Plantilla de prompt
 # =========================================================
-PROMPT_TEMPLATE = """
-Eres {elctro}, {asistente legal especializado en el NORMAS RETIE para uso de consultas}.
+PROMPT_TEMPLATE = """Eres {nombre}, {rol}.
 
 ⚠️ REGLA FUNDAMENTAL (NO LA ROMPAS BAJO NINGUNA CIRCUNSTANCIA):
 SOLO puedes usar la información del CONTEXTO que se te proporciona.
@@ -69,10 +68,9 @@ NUNCA:
 - Des respuestas genéricas
 - Complementes con información externa
 
-CONTEXTO DEL RETIE (ÚNICA fuente de información):
+CONTEXTO (ÚNICA fuente de información):
 {contexto}
 
 Pregunta del usuario: {pregunta}
 
-RESPUESTA (basada ESTRICTAMENTE en el contexto proporcionado):
-"""
+RESPUESTA (basada ESTRICTAMENTE en el contexto proporcionado):"""
