@@ -5,6 +5,61 @@
 
 ---
 
+## 🚀 Inicio Rápido - Aplicación Web Flask
+
+### Requisitos Previos
+- Python 3.9 o superior
+- Variable de entorno `GOOGLE_API_KEY` configurada
+- Virtual environment activado
+
+### Instalación
+
+1. **Instalar dependencias:**
+```bash
+pip install -r requirements.txt
+```
+
+2. **Ejecutar la aplicación:**
+```bash
+python app.py
+```
+
+3. **Acceder a la interfaz web:**
+```
+http://localhost:5000
+```
+
+### Características de la Aplicación Web
+
+✅ **Interfaz moderna y responsiva** - Diseño adaptable para escritorio, tablet y móvil
+✅ **Chat en tiempo real** - Envía preguntas y recibe respuestas instantáneas
+✅ **RAG (Retrieval-Augmented Generation)** - Respuestas basadas en documentos relevantes
+✅ **Histórico de conversación** - Mantiene el contexto de la conversación
+✅ **Panel de información** - Consulta la configuración del asistente
+✅ **Búsqueda optimizada** - Encuentra documentos relevantes automáticamente
+
+### Estructura de Archivos
+
+```
+proyecto/
+├── app.py                    # Aplicación Flask principal
+├── requirements.txt          # Dependencias de Python
+├── templates/
+│   └── index.html           # Página principal (HTML)
+├── static/
+│   ├── style.css            # Estilos CSS
+│   └── script.js            # Lógica del cliente (JavaScript)
+├── src/
+│   ├── chat.py              # Lógica del chatbot RAG
+│   └── ingest.py            # Ingesta de documentos
+├── LLM/
+│   └── config.py            # Configuración central
+├── chromadb/                # Base de datos vectorial
+└── data/                    # Documentos de entrada
+```
+
+---
+
 ## 📄 Documento Seleccionado
 
 **Documento: RETIE — Reglamento Técnico de Instalaciones Eléctricas (Colombia) Categoría: Normas técnicas**
@@ -36,23 +91,26 @@ Su complejidad técnica (379 páginas) y su estructura legal lo convierten en un
 ## 🖐️ Cinco Preguntas y Respuestas del Sistema
 
 ### Pregunta 1: ¿Cuál es el objeto del RETIE?
+
 Los requisitos y prescripciones técnicas del RETIE son de obligatorio cumplimiento en Colombia para todas las instalaciones eléctricas utilizadas en la generación, transporte, transformación, distribución y uso final de la electricidad. Esto incluye las instalaciones que alimentan equipos para señales de telecomunicaciones, electrodomésticos, vehículos, máquinas, herramientas y demás equipos.
 
 Fuentes: Página(s) 159
 (Páginas consultadas: 6, 24, 28, 56, 90, 160, 208, 269, 337, 374)
+
 ---
 
 ### Pregunta 2: ¿Qué es el RETIE y para qué sirve?
 
-Volt: El RETIE son los requisitos y prescripciones técnicas de un Reglamento. Su propósito es ser de obligatorio cumplimiento en Colombia en todas las instalaciones eléctricas utilizadas en la generación, transporte, transformación, distribución y uso final de la electricidad. El Ministerio de Minas y Energía de Colombia es el órgano competente para su elaboración, revisión, actualización, interpretación y modificación.
+**Volt:** El RETIE son los requisitos y prescripciones técnicas de un Reglamento. Su propósito es ser de obligatorio cumplimiento en Colombia en todas las instalaciones eléctricas utilizadas en la generación, transporte, transformación, distribución y uso final de la electricidad. El Ministerio de Minas y Energía de Colombia es el órgano competente para su elaboración, revisión, actualización, interpretación y modificación.
 
 Fuentes: Página(s) 159, 373
 (Páginas consultadas: 23, 24, 28, 56, 160, 175, 208, 269, 271, 374)
+
 ---
 
-### Pregunta 3:¿Cuáles son los requisitos para los conductores eléctricos?
+### Pregunta 3: ¿Cuáles son los requisitos para los conductores eléctricos?
 
-Volt: Aquí están los requisitos para los conductores eléctricos, según el contexto proporcionado:
+**Volt:** Aquí están los requisitos para los conductores eléctricos, según el contexto proporcionado:
 
 *   Los ensayos y las tolerancias para evaluar los cables y conductores eléctricos deben estar de acuerdo con el referencial normativo con el que fueron diseñados y fabricados. No deben ser evaluados con normas diferentes a las de fabricación.
 *   La conexión de los conductores eléctricos a los terminales de los tomacorrientes y clavijas debe ser realizada por una persona competente, garantizando que no se generen calentamientos por malas prácticas.
@@ -77,18 +135,18 @@ Fuentes: Página(s) 76, 176, 221, 232, 234
 
 ### Pregunta 4: ¿Qué dice el RETIE sobre la puesta a tierra?
 
-Volt: El RETIE establece lo siguiente sobre la puesta a tierra:
+**Volt:** El RETIE establece lo siguiente sobre la puesta a tierra:
 
 El requisito de puesta a tierra para instalaciones eléctricas cubre el sistema eléctrico y los apoyos o estructuras metálicas que, ante una sobretensión temporal, puedan desencadenar una falla permanente a frecuencia industrial, entre la estructura puesta a tierra y la red. Su objetivo es evitar que las personas en contacto con la instalación queden sometidas a tensiones de paso, de contacto o transferidas que superen los umbrales de soportabilidad del ser humano cuando se presente una falla.
 
 La puesta a tierra debe instalarse de acuerdo con lo establecido en el Título 12 del Libro 3 o de conformidad con los requisitos de instalación para la puesta a tierra. Con el fin de garantizar la seguridad tanto del personal del operador de red como del público en general, se deben cumplir los requisitos de puesta a tierra que apliquen, establecidos en el Título 12 del presente Libro.
 
 Respecto a las puestas a tierra temporales (Artículo 3.17.25), deben instalarse de acuerdo con los siguientes requisitos:
-*   Para garantizar la seguridad del operario, se deben tener en cuenta las “Reglas de oro” indicadas en el artículo 3.15.5 del presente Libro.
+*   Para garantizar la seguridad del operario, se deben tener en cuenta las "Reglas de oro" indicadas en el artículo 3.15.5 del presente Libro.
 *   Se debe atender la guía de instalación, inspección y mantenimiento de la puesta a tierra temporal entregada por el proveedor.
 *   El montaje para redes o líneas aéreas debe hacerse de tal manera que los pies del liniero queden al potencial de tierra y que los conductores que se conectan a las líneas tengan la menor longitud e impedancia posible.
 *   Cuando la estructura o apoyo tenga su propia puesta a tierra, se conecta a esta.
-*   Cuando vaya a “abrirse” un conductor o circuito, se colocarán tierras en ambos lados.
+*   Cuando vaya a "abrirse" un conductor o circuito, se colocarán tierras en ambos lados.
 *   Cuando dos o más trabajadores o cuadrillas laboren en lugares distintos de las mismas líneas o equipo, serán responsables de coordinar la colocación y retiro de los equipos de puesta a tierra en sus lugares de trabajo correspondientes.
 
 Fuentes: Página(s) 190, 209, 246, 247, 290
@@ -98,20 +156,17 @@ Fuentes: Página(s) 190, 209, 246, 247, 290
 
 ### Pregunta 5: ¿Quién es responsable de la seguridad en una instalación eléctrica según el RETIE?
 
-Volt: Según el RETIE, la responsabilidad de la seguridad en una instalación eléctrica recae en diversas personas y entidades, con roles específicos:
+**Volt:** Según el RETIE, la responsabilidad de la seguridad en una instalación eléctrica recae en diversas personas y entidades, con roles específicos:
 
-*   **Diseñadores**: Son responsables de verificar que en la etapa pre-constructiva se cumplan requisitos como las distancias de servidumbre y seguridad, y de asegurar que los diseños eléctricos cumplan con todos los requisitos del RETIE. (Pág. 164, Pág. 180)
-*   **Constructores** (o la persona competente responsable de la dirección o construcción directa de la instalación): Deben revisar los diseños eléctricos, asegurar que la instalación resultante cumpla con todos los requisitos del RETIE, informar al diseñador y propietario si los diseños no cumplen, presentar un manual de operación y mantenimiento, y son responsables de los efectos que se deriven de la construcción, ampliación o remodelación de la instalación durante su operación. Pueden ser denunciados e investigados disciplinariamente si violan las distancias de seguridad. (Pág. 164, Pág. 180)
-*   **Operadores**: El responsable de la operación de la instalación eléctrica debe realizar los ajustes requeridos para llevar la instalación a las condiciones reglamentarias cuando se reporta alto riesgo o peligro inminente. (Pág. 41)
-*   **Inspectores**: Pueden ser denunciados e investigados disciplinariamente si violan las distancias de seguridad. (Pág. 180)
-*   **Propietarios**: Tienen responsabilidades establecidas por el RETIE. Si modifican la construcción y violan las distancias mínimas de seguridad, serán objeto de investigación administrativa por poner en alto riesgo. (Pág. 2, Pág. 180)
-*   **Usuarios**: Tienen responsabilidades establecidas por el RETIE. (Pág. 2)
-*   **Tenedor**: Es la persona o sociedad que posee, administra o hace uso de una instalación eléctrica, y es responsable de su operación y mantenimiento, incluyendo modificaciones o ampliaciones, salvo que se acuerde lo contrario con el propietario. (Pág. 22)
-*   **Personas competentes**: Son quienes deben dirigir, supervisar y ejecutar el diseño, construcción, ampliación, modificación, remodelación e inspección de toda instalación eléctrica, así como su operación, mantenimiento y cualquier intervención. Responderán por los efectos resultantes de su participación. (Pág. 163)
-*   **Responsable de la instalación**: Debe garantizar que todo operario de trabajo con tensión sea persona competente y esté autorizado para tal fin. (Pág. 212)
-*   **Jefe del trabajo**: Es responsable de las decisiones y acciones de cualquier orden que afecten la seguridad durante los trabajos con tensión. (Pág. 212)
+*   **Diseñadores**: Son responsables de verificar que en la etapa pre-constructiva se cumplan requisitos como las distancias de servidumbre y seguridad, y de asegurar que los diseños eléctricos cumplan con todos los requisitos del RETIE.
+*   **Constructores**: Deben revisar los diseños eléctricos, asegurar que la instalación resultante cumpla con todos los requisitos del RETIE, informar al diseñador y propietario si los diseños no cumplen.
+*   **Operadores**: El responsable de la operación de la instalación eléctrica debe realizar los ajustes requeridos para llevar la instalación a las condiciones reglamentarias cuando se reporta alto riesgo o peligro inminente.
+*   **Inspectores**: Pueden ser denunciados e investigados disciplinariamente si violan las distancias de seguridad.
+*   **Propietarios**: Tienen responsabilidades establecidas por el RETIE. Si modifican la construcción y violan las distancias mínimas de seguridad, serán objeto de investigación administrativa.
+*   **Usuarios**: Tienen responsabilidades establecidas por el RETIE.
+*   **Personas competentes**: Son quienes deben dirigir, supervisar y ejecutar el diseño, construcción, ampliación, modificación, remodelación e inspección de toda instalación eléctrica.
 
-En general, el RETIE establece las responsabilidades que deben cumplir los diseñadores, constructores, interventores, operadores, inspectores, propietarios y usuarios de los sistemas e instalaciones eléctricas, además de otros actores, con el fin de minimizar los riesgos de origen eléctrico. (Pág. 2)
+En general, el RETIE establece las responsabilidades que deben cumplir los diseñadores, constructores, interventores, operadores, inspectores, propietarios y usuarios de los sistemas e instalaciones eléctricas, además de otros actores, con el fin de minimizar los riesgos de origen eléctrico.
 
 Fuentes: Página(s) 2, 22, 41, 163, 164, 180, 212
 (Páginas consultadas: 3, 23, 42, 164, 165, 166, 181, 213, 258, 373)
@@ -120,40 +175,64 @@ Fuentes: Página(s) 2, 22, 41, 163, 164, 180, 212
 
 ## 🛠️ Instrucciones de Ejecución
 
-### Instrucciones para ejecutar el sistema
+### 1. Clonar el repositorio (si es necesario)
 
-1. Clonar el repositorio
-
-bashgit clone <url-del-repo>
+```bash
+git clone <url-del-repo>
 cd proyecto-rag
+```
 
-2. Crear entorno virtual e instalar dependencias
+### 2. Crear entorno virtual e instalar dependencias
 
-bashpython -m venv venv
+```bash
+python -m venv venv
 source venv/bin/activate        # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
 
-3. Configurar la API key
+### 3. Configurar la API key
 
-bashcp .env.example .env
+```bash
+cp .env.example .env
+```
 
-Edita .env y pega tu key de Google AI Studio (https://aistudio.google.com/apikey):
+Edita `.env` y pega tu key de Google AI Studio (https://aistudio.google.com/apikey):
 
+```
 GOOGLE_API_KEY=tu_api_key_real
+```
 
-4. Colocar el documento
+### 4. Ejecutar la aplicación web
 
-Coloca tu PDF dentro de la carpeta data/ y actualiza PDF_PATH en src/config.py
-si el nombre del archivo es distinto.
+```bash
+python app.py
+```
 
-5. Ejecutar la ingesta (solo la primera vez, o si cambias el PDF)
+Luego accede a: `http://localhost:5000`
 
-bashpython src/ingest.py
+---
 
-Esto crea la carpeta chromadb/ con los embeddings guardados.
+## 🎓 Tecnologías Utilizadas
 
-6. Ejecutar el asistente conversacional
+- **Backend**: Flask + Python
+- **Frontend**: HTML + CSS + JavaScript
+- **LLM**: Google Gemini
+- **Embeddings**: Sentence Transformers
+- **Vector DB**: ChromaDB
+- **Framework**: LangChain
 
-bashpython src/chat.py
+---
 
-Escribe tus preguntas en la terminal. Escribe salir para terminar.
+## 📝 Archivos Principales
+
+- `app.py` - Servidor Flask
+- `templates/index.html` - Interfaz web
+- `static/style.css` - Estilos
+- `static/script.js` - Lógica del cliente
+- `src/chat.py` - Lógica RAG
+- `LLM/config.py` - Configuración
+
+---
+
+
+¡El chatbot está listo para usar! 🚀
