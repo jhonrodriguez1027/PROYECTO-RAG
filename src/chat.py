@@ -51,17 +51,22 @@ def recuperar_contexto(vector_store, pregunta: str):
         search_type="mmr",  # Maximum Marginal Relevance
         search_kwargs={
             "k": config.TOP_K,
-            "fetch_k": 20,  # Trae 20 candidatos
+            "fetch_k": 40,  # Aumentado para traer más candidatos
             "lambda_mult": 0.7  # Balance entre relevancia (1) y diversidad (0)
         }
     )
     return retriever.invoke(pregunta)
 
 def construir_contexto(documentos) -> str:
-    return "\n\n--\n\n".join(
-        f"[Fragmento {i + 1} - Pág. {doc.metadata.get('page', '?')}]\n{doc.page_content}"
-        for i, doc in enumerate(documentos)
-    )
+    """Construye el contexto filtrando documentos vacíos"""
+    fragmentos = []
+    for i, doc in enumerate(documentos):
+        contenido = doc.page_content.strip()
+        if contenido:  # Solo incluir documentos con contenido
+            pagina = doc.metadata.get('page', '?')
+            fragmentos.append(f"[Fragmento {i + 1} - Pág. {pagina}]\n{contenido}")
+    
+    return "\n\n--\n\n".join(fragmentos)
 
 def extraer_paginas(documentos) -> str:
     paginas = sorted({
@@ -72,6 +77,7 @@ def extraer_paginas(documentos) -> str:
     return ", ".join(str(p) for p in paginas) if paginas else "N/A"
 
 def construir_prompt(pregunta: str, contexto: str):
+    """Construye el prompt rellenando el template con variables"""
     template = ChatPromptTemplate.from_template(config.PROMPT_TEMPLATE)
     return template.invoke({
         "nombre": config.ASSISTANT_NAME,
@@ -139,9 +145,12 @@ def preguntar(vector_store, llm, pregunta: str):
     # Primero, intentar búsqueda directa
     documentos = recuperar_contexto(vector_store, pregunta)
     
-    # Si no encuentra nada relevante, intentar con consulta mejorada
-    if not documentos or len(documentos) < 2:
-        print("🔍 Intentando búsqueda optimizada...")
+    # Construir contexto
+    contexto = construir_contexto(documentos)
+    
+    # Si el contexto está vacío o muy pequeño, intentar con consulta mejorada
+    if not contexto or len(contexto) < 200:
+        print("🔍 Contexto insuficiente, intentando optimización...")
         try:
             # Crear un query enhancer solo para reformular
             enhancer = ChatGoogleGenerativeAI(
@@ -176,13 +185,13 @@ def preguntar(vector_store, llm, pregunta: str):
                     documentos_finales.append(doc)
             
             documentos = documentos_finales[:config.TOP_K]
+            contexto = construir_contexto(documentos)
             
         except Exception as e:
             print(f"⚠️ Error en búsqueda mejorada: {e}")
             # Si falla, usar los resultados originales
             pass
     
-    contexto = construir_contexto(documentos)
     prompt = construir_prompt(pregunta, contexto)
     respuesta = llm.invoke(prompt)
     
